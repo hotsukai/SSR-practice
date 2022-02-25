@@ -15,6 +15,10 @@ app.get('/ssr', function (req, res) {
   res.send(indexPageHtml)
 })
 
+app.get('/ssg', function (req, res) {
+  res.sendFile(`${__dirname}/public/ssg/ssg.html`)
+})
+
 
 
 app.use(express.static('dist/public'))

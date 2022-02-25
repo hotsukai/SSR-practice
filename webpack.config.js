@@ -1,10 +1,13 @@
 const path = require("path");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+
 module.exports = {
   mode: "development",
   target: "node",
   entry: {
     server: "./src/server/index.ts",
     "public/client": "./src/client/index.tsx",
+    ssg: "./src/server/ssg.ts",
   },
   output: {
     filename: "[name].js",
@@ -32,6 +35,7 @@ module.exports = {
       assert: require.resolve("assert/"),
     },
     extensions: [".ts", ".js", ".tsx"],
+    plugins: [new TsconfigPathsPlugin({ configFile: "./tsconfig.json" })],
   },
   // node: {
   //   fs: "empty",
