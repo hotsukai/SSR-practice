@@ -3,8 +3,9 @@ import React, { useCallback, useState, VFC } from "react";
 import ToDoCard from "./ToDoCard";
 import ToDoForm from "./ToDoForm";
 
-const ToDoList: VFC = () => {
-  const [todoList, setTodoList] = useState<ToDoItem[]>([]);
+type Props = { initItems?: ToDoItem[] };
+const ToDoList: VFC<Props> = ({ initItems = [] }) => {
+  const [todoList, setTodoList] = useState<ToDoItem[]>(initItems);
   const addItem = useCallback(
     (item: ToDoItem) => setTodoList((items) => [...items, item]),
     []
