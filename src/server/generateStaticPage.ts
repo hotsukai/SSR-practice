@@ -1,4 +1,4 @@
-import { IndexPage } from '../client/pages';
+import { IndexPage, IndexPageProps } from '../client/pages';
 import React from "react";
 
 import mockDB from 'server/mockDB';
@@ -18,11 +18,11 @@ const pages: Readonly<Array<PageDefinition<any>>> = [{
   path: "ssg",
   title: "ssg page",
   component: IndexPage,
-  getSsgProps: () => ({ todos: mockDB })
+  getSsgProps: () => ({ todos: mockDB, pagename: 'ssg' })
 }] as const
 
 pages.forEach(page => {
-  const pageHtml = createHtml<unknown>({ title: page.title, pageComponent: page.component, props: page.getSsgProps() })
+  const pageHtml = createHtml<unknown>({ title: page.title, pageComponent: page.component, props: page.getSsgProps(), url: `/${path}` })
   // 書き込み
   fs.writeFile(`${path.resolve(__dirname, "public/ssg")}/${page.path}.html`, pageHtml, (err: Error) => {
     if (err) throw err;

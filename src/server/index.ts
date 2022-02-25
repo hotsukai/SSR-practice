@@ -1,4 +1,4 @@
-import { IndexPage } from '../client/pages';
+import { IndexPage, IndexPageProps } from '../client/pages';
 import express from 'express'
 import mockDB from './mockDB';
 import createHtml from './helper';
@@ -9,7 +9,7 @@ const app = express()
 
 
 app.get('/ssr', function (req, res) {
-  const indexPageHtml = createHtml<{ todos: ToDoItem[] }>({ title: "My SSR Practice", pageComponent: IndexPage, props: { todos: mockDB } })
+  const indexPageHtml = createHtml<IndexPageProps>({ title: "My SSR Practice", pageComponent: IndexPage, props: { todos: mockDB, pagename: 'ssr' }, url: req.url })
   res.send(indexPageHtml)
 })
 

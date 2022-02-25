@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     server: "./src/server/index.ts",
     "public/client": "./src/client/index.tsx",
-    ssg: "./src/server/ssg.ts",
+    ssg: "./src/server/generateStaticPage.ts",
   },
   output: {
     filename: "[name].js",
