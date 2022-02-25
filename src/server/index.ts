@@ -6,8 +6,6 @@ import { ToDoItem } from 'app';
 const app = express()
 
 
-
-
 app.get('/ssr', function (req, res) {
   const indexPageHtml = createHtml<IndexPageProps>({ title: "My SSR Practice", pageComponent: IndexPage, props: { todos: mockDB, pagename: 'ssr' }, url: req.url })
   res.send(indexPageHtml)
