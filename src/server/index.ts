@@ -1,14 +1,23 @@
-import { IndexPage, IndexPageProps } from '../client/pages';
 import express from 'express'
 import mockDB from './mockDB';
-import createHtml from './helper';
-import { ToDoItem } from 'app';
+import createHtml from './renderer';
 const app = express()
 
+app.use('/public', express.static('dist/public'));
 
-app.get('/ssr', function (req, res) {
-  const indexPageHtml = createHtml<IndexPageProps>({ title: "My SSR Practice", pageComponent: IndexPage, props: { todos: mockDB, pagename: 'ssr' }, url: req.url })
-  res.send(indexPageHtml)
+app.get('/api/todo', function (req, res) {
+  console.info('/api/todo/ called');
+
+  res.json(mockDB.findAll())
+})
+app.get('/api/todo/:id', function (req, res) {
+  res.json(mockDB.find(req.params.id))
+})
+
+app.get('/*', async (req, res) => {
+  const pageHtml = await createHtml({ url: req.url })
+
+  res.send(pageHtml)
 })
 
 app.get('/ssg', function (req, res) {
@@ -17,5 +26,5 @@ app.get('/ssg', function (req, res) {
 
 
 
-app.use(express.static('dist/public'))
+
 app.listen(3000)

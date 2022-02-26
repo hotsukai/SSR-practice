@@ -27,7 +27,7 @@ module.exports = {
   },
   resolve: {
     fallback: {
-      modules: [path.resolve(__dirname, "src"), "node_modules"],
+      modules: [path.resolve("./src"), "node_modules"],
       crypto: require.resolve("crypto-browserify"),
       zlib: require.resolve("browserify-zlib"),
       fs: require.resolve("fs"),
@@ -37,8 +37,7 @@ module.exports = {
     extensions: [".ts", ".js", ".tsx"],
     plugins: [new TsconfigPathsPlugin({ configFile: "./tsconfig.json" })],
   },
-  // node: {
-  //   fs: "empty",
-  //   net: "empty",
-  // },
+  externals: {
+    "node-fetch": "commonjs2 node-fetch",
+  },
 };

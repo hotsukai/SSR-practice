@@ -10,5 +10,8 @@
 - クライアント側のJSで`ReactDOM.hydrate`することで、生成済みのHTMLにイベントリスナーを設定している。
 
 ## TODO
-- 複数ページ対応
 - `client.js`の分割
+
+
+## 参考URI
+https://ui.dev/react-router-server-rendering

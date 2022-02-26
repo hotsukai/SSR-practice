@@ -1,5 +1,7 @@
-import { ToDoItem } from "app";
+import { ToDoItem } from "../../app";
+import { buildDetailPath } from "../../client/App";
 import React, { useCallback, useState, VFC } from "react";
+import { Link } from "react-router-dom";
 import ToDoCard from "./ToDoCard";
 import ToDoForm from "./ToDoForm";
 
@@ -13,7 +15,9 @@ const ToDoList: VFC<Props> = ({ initItems = [] }) => {
   return (
     <>
       {todoList.map((item) => (
-        <ToDoCard item={item} key={item.title} />
+        <Link to={buildDetailPath(item.id)} key={item.id}>
+          <ToDoCard item={item} />
+        </Link>
       ))}
       <ToDoForm addItem={addItem} />
     </>

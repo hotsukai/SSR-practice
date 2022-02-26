@@ -1,5 +1,6 @@
-import { ToDoItem } from "app";
+import { ToDoItem } from "../../app";
 import React, { useCallback, useState, VFC } from "react";
+import { generateUuid } from "../../utils";
 
 type Props = {
   addItem: (item: ToDoItem) => void;
@@ -11,7 +12,7 @@ const ToDoForm: VFC<Props> = ({ addItem }) => {
   const submitHandler = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      addItem({ title, detail, isFinished: false });
+      addItem({ title, detail, isFinished: false, id: generateUuid() });
     },
     [title, detail]
   );

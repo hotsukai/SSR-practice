@@ -1,4 +1,4 @@
-import { ToDoItem } from "app";
+import { ToDoItem } from "../../app";
 import React, { VFC } from "react";
 
 type Props = { item: ToDoItem };
