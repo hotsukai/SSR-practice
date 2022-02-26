@@ -13,7 +13,8 @@ const createHtml = async ({ url }: Props) => {
   const route = routes.find((r) => matchPath(r.path, url));
   if (!route) throw new Error("❗route not found");
 
-  const serverData = await route.fetchInitData(url);
+  // url は /ssr/id1 のような形式
+  const serverData = await route.fetchInitDataOnServer(url);
   const pageHtml = ReactDOMServer.renderToString(
     <StaticRouter location={url}>
       <App serverData={serverData} />

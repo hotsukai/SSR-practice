@@ -6,48 +6,18 @@ import { buildTopPath } from "../../client/App";
 
 export type DetailPageProps = {
   data?: ToDoItem;
-  fetchInitData?: any;
+  isLoading: boolean;
 };
-const DetailPage: VFC<DetailPageProps> = ({ data, fetchInitData }) => {
-  const [todo, setTodo] = useState(() => {
-    if (typeof document !== "undefined") {
-      const dataPool = (document.getElementById("root") as HTMLElement).dataset
-        .react;
-      const unsafeData = dataPool ? (JSON.parse(dataPool) as ToDoItem) : null;
-      (document.getElementById("root") as HTMLElement).dataset.react = "";
-      return unsafeData;
-    } else {
-      return data; // SSRしてる時
-    }
-  });
-  console.log(JSON.stringify(data), JSON.stringify(todo));
-
-  const [loading, setLoading] = useState(todo ? false : true);
-
-  const { id } = useParams();
-  const shouldFetch = useRef(!todo);
-
-  useEffect(() => {
-    if (shouldFetch.current) {
-      console.log("start fetch", id);
-      setLoading(true);
-      fetchInitData("/ssr/" + id /* fixme */).then((todo) => {
-        console.log("result", todo);
-
-        setTodo(todo);
-        setLoading(false);
-      });
-    }
-  }, [id]);
-  if (loading) return <p>loading</p>;
-  if (todo)
+const DetailPage: VFC<DetailPageProps> = ({ data, isLoading }) => {
+  if (isLoading) return <p>loading detail page</p>;
+  if (data)
     return (
       <div>
         <h1>Detail page</h1>
         <p>
           <Link to={buildTopPath()}>Top</Link>
         </p>
-        <ToDoCard item={todo} />
+        <ToDoCard item={data} />
       </div>
     );
   return <></>;

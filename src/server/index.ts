@@ -25,6 +25,4 @@ app.get('/ssg', function (req, res) {
 })
 
 
-
-
 app.listen(3000)
