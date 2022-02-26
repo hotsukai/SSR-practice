@@ -4,17 +4,15 @@ import { ToDoItem } from "app";
 import { isBrowser } from "utils";
 
 export type IndexPageProps = {
-  data?: ToDoItem[];
+  data: ToDoItem[];
   isLoading: boolean;
 };
 export const IndexPage: VFC<IndexPageProps> = ({ data, isLoading }) => {
   if (isLoading) return <p>loading Index Page</p>;
-  if (data)
-    return (
-      <div>
-        <h1>index page</h1>
-        <ToDoList initItems={data} />
-      </div>
-    );
-  return <></>;
+  return (
+    <div>
+      <h1>index page</h1>
+      <ToDoList initItems={data} />
+    </div>
+  );
 };

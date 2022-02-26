@@ -44,9 +44,7 @@ const PageWrapper: VFC<Props> = ({
     }
   }, [pathname, shouldFetch]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (data) return <PageComponent data={data} isLoading={isLoading} />;
-  return <p>Something wrong...</p>;
+  return <PageComponent data={data} isLoading={isLoading} />;
 };
 
 export default PageWrapper;
