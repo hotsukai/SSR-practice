@@ -1,7 +1,6 @@
 import ToDoList from "../components/ToDoList";
-import React, { useEffect, useRef, useState, VFC } from "react";
+import React, { VFC } from "react";
 import { ToDoItem } from "app";
-import { isBrowser } from "utils";
 
 export type IndexPageProps = {
   data: ToDoItem[];

@@ -22,7 +22,6 @@ const PageWrapper: VFC<Props> = ({
       return serverData; // SSRしてる時
     }
   });
-  console.log(JSON.stringify(serverData), JSON.stringify(data));
 
   const [isLoading, setIsLoading] = useState(data ? false : true);
 

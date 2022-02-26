@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, VFC } from "react";
+import React, { VFC } from "react";
 import { ToDoItem } from "../../app";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ToDoCard from "../../client/components/ToDoCard";
 import { buildTopPath } from "../../client/App";
 
