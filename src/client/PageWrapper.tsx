@@ -35,7 +35,6 @@ const PageWrapper: VFC<Props> = ({ serverData, PageComponent }) => {
             console.warn(error);
             return null;
           });
-        pathname;
         setData(result);
         setIsLoading(false);
         shouldFetch.current = false;

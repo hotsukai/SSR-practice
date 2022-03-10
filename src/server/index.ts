@@ -8,7 +8,6 @@ app.use('/public', express.static('dist/public'));
 
 Object.keys(routes).forEach(key => {
   const route = routes[key] as PageProps
-  console.log(route.path);
 
   app.get(route.path, async (req, res) => {
     const pageData = await route.getServerSideProps(req)

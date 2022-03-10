@@ -2,6 +2,12 @@
 - `/ssr`でSSR結果が、`/ssg`でSSG結果が帰ってくる。
   - 詳細は`src/server/index.ts`
 
+## 起動
+```sh
+npm i
+npm run dev
+```
+
 ## 仕組み
 - 生成したHTMLを`<div id="root"></div>`配下に置いている。
 - このroot要素にデータ要素として初期propsを渡している。
