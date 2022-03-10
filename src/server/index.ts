@@ -1,28 +1,28 @@
-import express from 'express'
-import mockDB from './mockDB';
-import createHtml from './renderer';
+import express, { Request } from 'express'
+import routes, { PageProps } from 'routes';
+import renderHtml from './renderer';
+
 const app = express()
 
 app.use('/public', express.static('dist/public'));
 
-app.get('/api/todo', function (req, res) {
-  console.info('/api/todo/ called');
+Object.keys(routes).forEach(key => {
+  const route = routes[key] as PageProps
+  console.log(route.path);
 
-  res.json(mockDB.findAll())
-})
-app.get('/api/todo/:id', function (req, res) {
-  res.json(mockDB.find(req.params.id))
+  app.get(route.path, async (req, res) => {
+    const pageData = await route.getServerSideProps(req)
+    const pageHtml = await renderHtml({ url: req.url, pageData })
+    res.send(pageHtml)
+  })
+  app.get(`/api${route.path}`, async (req, res) => {
+    const pageData = await route.getServerSideProps(req)
+    res.json(pageData)
+  })
 })
 
 app.get('/*', async (req, res) => {
-  const pageHtml = await createHtml({ url: req.url })
-
-  res.send(pageHtml)
+  res.send("Page NotFound")
 })
-
-app.get('/ssg', function (req, res) {
-  res.sendFile(`${__dirname}/public/ssg/ssg.html`)
-})
-
 
 app.listen(3000)

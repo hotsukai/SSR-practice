@@ -1,16 +1,12 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState, VFC } from "react";
 import { useLocation } from "react-router-dom";
 
 type Props = {
   serverData?: any;
-  fetchInitData: (pathname?: string) => any;
   PageComponent: VFC<{ data?: any; isLoading: boolean }>;
 };
-const PageWrapper: VFC<Props> = ({
-  serverData,
-  fetchInitData,
-  PageComponent,
-}) => {
+const PageWrapper: VFC<Props> = ({ serverData, PageComponent }) => {
   const [data, setData] = useState(() => {
     if (typeof document !== "undefined") {
       const dataPool = (document.getElementById("root") as HTMLElement).dataset
@@ -32,7 +28,14 @@ const PageWrapper: VFC<Props> = ({
     if (shouldFetch.current) {
       const f = async () => {
         setIsLoading(true);
-        const result = await fetchInitData(pathname);
+        const result = await axios
+          .get(`/api${window.location.pathname}`)
+          .then((data) => data.data)
+          .catch((error) => {
+            console.warn(error);
+            return null;
+          });
+        pathname;
         setData(result);
         setIsLoading(false);
         shouldFetch.current = false;

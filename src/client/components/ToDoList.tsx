@@ -1,9 +1,9 @@
 import { ToDoItem } from "../../app";
-import { buildDetailPath } from "../../client/App";
 import React, { useCallback, useState, VFC } from "react";
 import { Link } from "react-router-dom";
 import ToDoCard from "./ToDoCard";
 import ToDoForm from "./ToDoForm";
+import routes from "routes";
 
 type Props = { initItems?: ToDoItem[] };
 const ToDoList: VFC<Props> = ({ initItems = [] }) => {
@@ -15,7 +15,7 @@ const ToDoList: VFC<Props> = ({ initItems = [] }) => {
   return (
     <>
       {todoList.map((item) => (
-        <Link to={buildDetailPath(item.id)} key={item.id}>
+        <Link to={routes["/todos/:id"].buildPath(item.id)} key={item.id}>
           <ToDoCard item={item} />
         </Link>
       ))}

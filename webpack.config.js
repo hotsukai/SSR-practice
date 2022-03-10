@@ -16,12 +16,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: [{ loader: "ts-loader" }],
-      },
-      {
-        test: /\.tsx?$/,
-        use: [{ loader: "ts-loader" }],
+        test: /\.(ts|tsx)$/,
+        use: {
+          loader: "ts-loader",
+          options: {
+            compilerOptions: {
+              strict: false,
+              strictNullChecks: false,
+            },
+          },
+        },
       },
     ],
   },

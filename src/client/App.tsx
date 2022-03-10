@@ -3,18 +3,11 @@ import { Route, Routes } from "react-router-dom";
 import routes from "../routes";
 import PageWrapper from "./PageWrapper";
 
-export const buildTopPath = () => `/ssr`;
-export const buildDetailPath = (id: string) => `/ssr/${id}`;
-
 const App: VFC<{ serverData?: any }> = ({ serverData = null }) => {
   return (
     <Routes>
-      {routes.map((route) => {
-        const {
-          path,
-          fetchInitDataOnBrowser: fetchInitData,
-          component: C,
-        } = route;
+      {Object.keys(routes).map((key) => {
+        const { path, component: C } = routes[key];
         return (
           <Route
             key={path}
@@ -23,7 +16,6 @@ const App: VFC<{ serverData?: any }> = ({ serverData = null }) => {
               <PageWrapper
                 key={path}
                 PageComponent={C}
-                fetchInitData={fetchInitData}
                 serverData={serverData}
               />
             }

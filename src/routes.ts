@@ -1,30 +1,33 @@
+
+import { Request } from 'express'
 import { IndexPage } from "./client/pages";
 import DetailPage from "./client/pages/detail";
 import { VFC } from "react";
-import { fetchData } from "./utils";
 import mockDB from "./server/mockDB";
 
 
 export type PageProps = {
-  path: string, component: VFC<{ data?: any, fetchInitData?: any }>,
-  fetchInitDataOnServer: (url?: string) => unknown, // urlはexpressのslugになる
-  fetchInitDataOnBrowser: (pathname?: string) => unknown
+  path: string,
+  buildPath: (id?: string) => string
+  component: VFC,
+  getServerSideProps: (req: Request) => unknown, // urlはexpressのslugになる
 }
 
 
-const routes: PageProps[] = [
-  {
-    path: '/ssr',
+const routes: { [key: string]: PageProps } =
+{
+  '/todos': {
+    path: '/todos',
+    buildPath: () => '/todos',
     component: IndexPage,
-    fetchInitDataOnServer: () => mockDB.findAll(),
-    fetchInitDataOnBrowser: () => fetchData('/api/todo')
+    getServerSideProps: (req: Request) => mockDB.findAll(),
   },
-  {
-    path: '/ssr/:id',
+  '/todos/:id': {
+    path: '/todos/:id',
+    buildPath: (id: string) => '/todos/' + id,
     component: DetailPage,
-    fetchInitDataOnServer: (url: string) => mockDB.find(url.match(/ssr\/(.*)/)[1]),
-    fetchInitDataOnBrowser: (pathname: string) => fetchData(`/api/todo/${pathname.match(/\/ssr\/(.*)/)[1]}`)
+    getServerSideProps: (req: Request) => mockDB.find(req.params.id),
   },
-]
+}
 
 export default routes

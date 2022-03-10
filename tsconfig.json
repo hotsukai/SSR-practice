@@ -4,6 +4,7 @@
     "allowJs": false,
     "skipLibCheck": true,
     "strict": false,
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     // "noEmit": true,
     "esModuleInterop": true,

@@ -7,17 +7,13 @@ import { matchPath } from "react-router-dom";
 
 type Props = {
   url: string;
+  pageData: unknown;
 };
-const createHtml = async ({ url }: Props) => {
-  console.info(`start creating html: ${url}`);
-  const route = routes.find((r) => matchPath(r.path, url));
-  if (!route) throw new Error("❗route not found");
-
+const createHtml = async ({ url, pageData }: Props) => {
   // url は /ssr/id1 のような形式
-  const serverData = await route.fetchInitDataOnServer(url);
-  const pageHtml = ReactDOMServer.renderToString(
+  const pageElemHtml = ReactDOMServer.renderToString(
     <StaticRouter location={url}>
-      <App serverData={serverData} />
+      <App serverData={pageData} />
     </StaticRouter>
   );
 
@@ -28,8 +24,8 @@ const createHtml = async ({ url }: Props) => {
     </head>
     <body>
       <div id="root" data-react='${JSON.stringify(
-        serverData
-      )}'>${pageHtml}</div>
+        pageData
+      )}'>${pageElemHtml}</div>
       <script src="/public/client.js"></script>
     </body>
   </html>`;
