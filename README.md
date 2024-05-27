@@ -1,4 +1,9 @@
+
+
+
 # SSRとSSGを自前実装してみた。
+https://zenn.dev/hotsukai/articles/react_ssr_scratch　
+
 - `/ssr`でSSRの結果が、~~`/ssg`でSSG結果が~~帰ってくる。
   - 詳細は[`src/server/index.ts`](/src/server/index.ts)
   - SSGは実装中
